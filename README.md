@@ -1,19 +1,23 @@
-# test
+# デバイスドライバ　解説　課題
 
-作者、ライセンス、バージョンなどの情報を記載
+ロボットシステム学課題1において作成したデバイスドライバの内容の解説を行う。
     
-MODULE_AUTHOR("Hayao Tamura");
     
-MODULE_DESCRIPTION("driver for LED control");
+　　　MODULE_AUTHOR("Hayao Tamura");
     
-MODULE_LICENSE("GPL");
+　　　MODULE_DESCRIPTION("driver for LED control");
     
-MODULE_VERSION("0.1");
+　　　MODULE_LICENSE("GPL");
+    
+　　　MODULE_VERSION("0.1");　　...作者、ライセンス、バージョンなどの情報を記載
+
+GPL　: コピーレフトの考え方をライセンス化したもの。基本的なルールとして、GPLで配布されたプログラムについて、ユーザーは実行、再配布、改変、調査できる権利を保持する。ただし、再配布の際には、再度GPLで配布する義務がある。
+
+GPLの効果として、1人が作れば他の人が苦労して同じものを作る必要がなくなるという大きな利点がある。また、人のコードを持ってきた企業や団体などが改変部分を隠してコピーを売るというようなことは抑制される。
 
 static dev_t dev;
 
 static struct cdev cdv;   ...キャラクタデバイスの情報を格納する構造体
-
 
 static ssize_t led_write(struct file* flip,const char* buf,size_t count,loff_t*pos)
 
@@ -106,23 +110,4 @@ unregister_chrdev_region(dev,1) ...引数dev,マイナー番号を1個返す
   これをすることによって、番号がinsmodのたびに増えてしまうことを防ぐこととなる
 
 
-
-
-make
-
-sudo insmod myled.ko
-
-tail /var/log/messages
-
-sudo mknod /dev/myled0 c 240 0
-
-sudo chmod 666 /dev/myled0
-
-lsmod
-
-echo abc > /dev/myled0
-
-sudo rm /dev/myled0
-
-sudo rmmod myled
 
